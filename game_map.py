@@ -42,12 +42,16 @@ class GameMap:
                     symbol_point = [point[0], point[1]-1]
                 elif key == "right to":
                     symbol_point = [point[0], point[1]+1]
-                elif key == "left to":
+                elif key == "behind":
                     symbol_point = [point[0]+1, point[1]]
                 surroundings[key] = symbol_point
                 symbol = self.get_symbol(symbol_point)
                 if symbol == " ":
                     value = "corridor"
+                elif symbol == "$":
+                    value = "enter to dungeon"
+                elif symbol == "×":
+                    value = "exit from dungeon"
                 elif symbol == "▓":
                     value = "wall"
             print(f"You see a {value} {key} you")
@@ -55,7 +59,6 @@ class GameMap:
 
     def can_move(self, point):
         symbol = self.get_symbol(point)
-        if symbol == " ":
+        if symbol != "▓":
             return True
-        elif symbol == "▓":
-            return False
+        return False
